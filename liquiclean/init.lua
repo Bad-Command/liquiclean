@@ -18,7 +18,7 @@
 ----
 
 liquiclean = {}
-liquiclean.version = 1.11
+liquiclean.version = 1.12
 
 -- config.lua contains configuration parameters
 dofile(minetest.get_modpath("liquiclean").."/config.lua")
@@ -78,6 +78,7 @@ minetest.register_node("liquiclean:fireextinguisher", {
 	paramtype = "light",
 	paramtype2 = "none",
 	drawtype = "plantlike",
+	groups = {oddly_breakable_by_hand=1},
 	pointable = true,
 	diggable = true,
 	damage_per_second = 0,
@@ -97,6 +98,9 @@ minetest.register_node("liquiclean:fireretardant", {
 	pointable = true,
 	diggable = true,
 	damage_per_second = 0,
+	after_place_node = function(pos, placer)
+		minetest.env:set_node(pos, {name="liquiclean:fireretardant", param1=14, param2=liquiclean.retardant_strength})
+	end
 })
 
 minetest.register_node("liquiclean:retardantcat", {
@@ -107,6 +111,7 @@ minetest.register_node("liquiclean:retardantcat", {
 	groups = {immortal=1},
 	walkable = false,
 	drawtype = "glasslike",
+	sunlight_propagates = true,
 	pointable = false,
 	diggable = false,
 	damage_per_second = 1,
@@ -120,6 +125,7 @@ minetest.register_node("liquiclean:retardantcleanercat", {
 	walkable = false,
 	groups = {immortal=1},
 	drawtype = "glasslike",
+	sunlight_propagates = true,
 	pointable = false,
 	diggable = false,
 	damage_per_second = 1,
@@ -184,8 +190,8 @@ minetest.register_craft({
 
 minetest.register_abm({
 	nodenames = {"liquiclean:fireextinguisher"},
-	neighbors = {"default:lava_source", "default:lava_flowing", "fire:basic_flame", "default:torch"},
-	interval = 0.1,
+	neighbors = {"default:lava_source", "default:lava_flowing", "fire:basic_flame"},
+	interval = 0.05,
 	chance = 1,
 	action = liquiclean.fireextinguisher_abm
 })
@@ -193,15 +199,15 @@ minetest.register_abm({
 minetest.register_abm({
 	nodenames = {"liquiclean:fireretardant"},
 	neighbors = {"fire:basic_flame"},
-	interval = 0.1,
+	interval = 0.03,
 	chance = 1,
 	action = liquiclean.retardant_abm
 })
 
 minetest.register_abm(
 	{nodenames = {"liquiclean:retardantcat"},
-	interval = 0.05,
-	chance = 2,
+	interval = 0.01,
+	chance = 3,
 	action = liquiclean.retardantcat_abm
 })
 
@@ -215,21 +221,21 @@ minetest.register_abm(
 
 minetest.register_abm(
 	{nodenames = {"liquiclean:lavacat"},
-	interval = 0.15,
+	interval = 0.2,
 	chance = 2,
 	action = liquiclean.lavacat_abm
 })
 
 minetest.register_abm(
 	{nodenames = {"liquiclean:watercat"},
-	interval = 0.15,
-	chance = 2,
+	interval = 0.5,
+	chance = 3,
 	action = liquiclean.watercat_abm
 })
 
 minetest.register_abm(
 	{nodenames = {"liquiclean:icecat"},
-	interval = 0.3,
-	chance = 2,
+	interval = 0.5,
+	chance = 3,
 	action = liquiclean.icecat_abm
 })
