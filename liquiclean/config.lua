@@ -17,10 +17,9 @@
 --Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ----
 
-liquiclean.lavacat_lifespan = 25
-liquiclean.watercat_lifespan = 25
-liquiclean.icecat_lifespan = 33
-
+liquiclean.lavacat_lifespan = 35
+liquiclean.lavacat_targets = {'default:lava_source', 'default:lava_flowing', 'ignore'}
+liquiclean.lavacat_poisons = nil
 liquiclean.lava_replacement = {
 	{node="default:stone", probability=0.015, min_y=-50, max_y=31000},
 	{node="air", probability=1, min_y=-50, max_y=31000},
@@ -33,12 +32,38 @@ liquiclean.lava_replacement = {
 	{node="default:stone", probability=1, min_y=-31000, max_y=-49}
 }
 
+liquiclean.watercat_lifespan = 35
+liquiclean.watercat_targets = {'default:water_source', 'default:water_flowing', 'ignore'}
+liquiclean.watercat_poisons = {'liquiclean:icecat', 'default:lava_source', 'default:lava_flowing'}
 liquiclean.water_replacement = {
 	{node="liquiclean:icenine", probability=1, min_y=-31000, max_y=1},
 
 	{node="air", probability=1, min_y=2, max_y=31000}
 }
 
+
+liquiclean.icecat_lifespan = 40
+liquiclean.icecat_targets = {'liquiclean:icenine', 'liquiclean.watercat', 'ignore'}
+liquiclean.icecat_poisons = {'liquiclean:icecat'}
 liquiclean.icenine_replacement = {
 	{node="default:water_source", probability=1, min_y=-31000, max_y=31000}
 }
+
+liquiclean.retardantcat_lifespan = 10
+liquiclean.retardantcat_targets = {'air', 'ignore'}
+liquiclean.retardantcat_poisons = {'liquiclean:retardantcleanercat'}
+liquiclean.retardant_replacements = {
+	{node="liquiclean:fireretardant", probability=1.0, min_y=-31000, max_y=31000, param2=10}
+}
+
+
+liquiclean.retardantcleanercat_lifespan = 35
+liquiclean.retardantcleanercat_targets = {'liquiclean:fireretardant', 'ignore'}
+liquiclean.retardantcleanercat_poisons = nil
+liquiclean.retardantcleanercat_replacements = {
+	{node="air", probability=1.0, min_y=-31000, max_y=31000, param2=10}
+}
+
+
+
+
