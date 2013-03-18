@@ -50,7 +50,7 @@ liquiclean.icenine_replacement = {
 }
 
 liquiclean.retardantcat_lifespan = 10
-liquiclean.retardantcat_targets = {'air', 'ignore'}
+liquiclean.retardantcat_targets = {'air', 'fire:basic_flame', 'ignore'}
 liquiclean.retardantcat_poisons = {'liquiclean:retardantcleanercat'}
 liquiclean.retardant_replacements = {
 	{node="liquiclean:fireretardant", probability=1.0, min_y=-31000, max_y=31000, param2=10}

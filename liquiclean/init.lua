@@ -1,5 +1,5 @@
 ---
---Liquiclean 1.00
+--Liquiclean 1.11
 --Copyright (C) 2013 Bad_Command
 --
 --This library is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
 ----
 
 liquiclean = {}
---liquiclean.version = 1.00
+liquiclean.version = 1.11
 
 -- config.lua contains configuration parameters
 dofile(minetest.get_modpath("liquiclean").."/config.lua")
