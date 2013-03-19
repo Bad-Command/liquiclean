@@ -17,7 +17,6 @@
 --Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 ----
 
-
 liquiclean.prng = PseudoRandom(42);
 
 liquiclean.lavacat_abm=function(pos, node, active_object_count, active_object_count_wider)
@@ -32,34 +31,6 @@ liquiclean.icecat_abm=function(pos, node, active_object_count, active_object_cou
 	liquiclean.run(pos, node, liquiclean.icecat_targets, liquiclean.icenine_replacement, liquiclean.icecat_lifespan, liquiclean.icecat_poisons)
 end
 
-liquiclean.fireextinguisher_abm=function(pos, node, active_object_count, active_object_count_wider)
-	minetest.sound_play("liquiclean_hiss", {pos = pos, gain = 1.3, max_hear_distance = liquiclean.retardantcat_lifespan*3})
-	node =  {name="liquiclean:retardantcat", param1=14, param2=liquiclean.retardantcat_lifespan}
-	minetest.env:set_node(pos, node)
-	liquiclean.retardantcat_abm(pos, node, nil, nil)
-end
-
-liquiclean.retardantcat_abm=function(pos, node, active_object_count, active_object_count_wider)
-	liquiclean.run(pos, node, liquiclean.retardantcat_targets, liquiclean.retardant_replacements, liquiclean.retardantcat_lifespan, liquiclean.retardantcat_poisons)
-end
-
-liquiclean.retardantcleanercat_abm=function(pos, node, active_object_count, active_object_count_wider)
-	liquiclean.run(pos, node, liquiclean.retardantcleanercat_targets, liquiclean.retardantcleanercat_replacements, liquiclean.retardantcleanercat_lifespan, liquiclean.retardantcleanercat_poisons)
-end
-
-liquiclean.retardant_abm=function(pos, node, active_object_count, active_object_count_wider)
-	flames = minetest.env:find_nodes_in_area({x=pos.x-1, y=pos.y-1, z=pos.z-1}, {x=pos.x+1, y=pos.y+1, z=pos.z+1}, {'fire:basic_flame'})
-	for i=1,#flames do
-			if node.param2 > 0 then
-				minetest.env:set_node(flames[i], {name=node.name, param1=14, param2=node.param2-1})
-				fire.on_flame_remove_at(flames[i])
-			else
-				liquiclean.propagate(flames[i], 'air', 0)
-				fire.on_flame_remove_at(flames[i])
-			end	
-	end
-end
-
 liquiclean.replace = function(pos, replacements) 
 	roll = liquiclean.prng:next() / 32767.0
 	cumulativeProb = 0
@@ -68,11 +39,7 @@ liquiclean.replace = function(pos, replacements)
 		if ( pos.y >= repl.min_y and pos.y <= repl.max_y ) then
 			cumulativeProb = cumulativeProb + repl.probability;
 			if ( roll < cumulativeProb ) then
-				if ( repl.func ~= nil ) then
-					repl.func(pos)
-				else
-					minetest.env:set_node(pos, {name=repl.node, param1=0, param2=repl.param2})
-				end
+				minetest.env:set_node(pos, {name=repl.node, param1=0, param2=repl.param2})
 				return
 			end
 		end

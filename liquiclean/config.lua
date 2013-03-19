@@ -21,7 +21,7 @@ liquiclean.lavacat_lifespan = 25
 liquiclean.lavacat_targets = {'default:lava_source', 'default:lava_flowing', 'ignore'}
 liquiclean.lavacat_poisons = nil
 liquiclean.lava_replacement = {
-	{node="default:stone", probability=0.015, min_y=-50, max_y=31000},
+	{node="default:stone", probability=0.007, min_y=-50, max_y=31000},
 	{node="air", probability=1, min_y=-50, max_y=31000},
 
 	{node="default:nyancat", probability=0.00004, min_y=-3100, max_y=-40},
@@ -49,30 +49,7 @@ liquiclean.icenine_replacement = {
 	{node="default:water_source", probability=1, min_y=-31000, max_y=31000}
 }
 
-liquiclean.retardant_strength = 5;
-liquiclean.retardant_strength_pure = 10
 
-liquiclean.retardantcat_lifespan = 10
-liquiclean.retardantcat_targets = {'air', 'fire:basic_flame', 'ignore'}
-liquiclean.retardantcat_poisons = {'liquiclean:retardantcleanercat'}
-liquiclean.retardant_replacements = {
-	{node="liquiclean:fireretardant", probability=1.0, min_y=-31000, max_y=31000, param2=10, func = function(pos) 
-			node = minetest.env:get_node(pos)
-			minetest.env:set_node(pos, {name='liquiclean:fireretardant', param1=0, param2=liquiclean.retardant_strength_pure})
-			if ( node.name == 'fire:basic_flame' ) then
-				fire.update_sounds_around(pos)
-			end
-		end
-	}
-}
-
-
-liquiclean.retardantcleanercat_lifespan = 35
-liquiclean.retardantcleanercat_targets = {'liquiclean:fireretardant', 'ignore'}
-liquiclean.retardantcleanercat_poisons = {'liquiclean:retardantcat'}
-liquiclean.retardantcleanercat_replacements = {
-	{node="air", probability=1.0, min_y=-31000, max_y=31000, param2=10}
-}
 
 
 
